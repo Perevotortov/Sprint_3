@@ -1,18 +1,18 @@
-from selenium.webdriver.common.by import By
+from locators import MainPage
+
 
 class TestConstructor:
     def test_section_filling(self, driver):
-        driver.find_element(By.XPATH, "//span[contains(text(),'Начинки')]").click()
-        assert driver.find_element(By.XPATH, "//h2[contains(text(),'Начинки')]").is_displayed()
+        driver.find_element(*MainPage.FILLINGS).click()
+        assert driver.find_element(*MainPage.FILLINGS).is_displayed()
 
     def test_section_sauce(self, driver):
-        driver.find_element(By.XPATH, "//span[contains(text(),'Соусы')]").click()
-        assert driver.find_element(By.XPATH, "//h2[contains(text(),'Соусы')]").is_displayed()
+        driver.find_element(*MainPage.SAUSE_BUTTON).click()
+        assert driver.find_element(*MainPage.SAUSE).is_displayed()
 
     def test_section_bun(self, driver):
-        driver.find_element(By.XPATH, "//span[contains(text(),'Соусы')]").click()
-        #кнопка булки
-        driver.find_element(By.XPATH, "//section/div/div").click()
-        assert driver.find_element(By.XPATH, "//h2[contains(text(),'Булки')]").is_displayed()
+        driver.find_element(*MainPage.SAUSE_BUTTON).click()
+        driver.find_element(*MainPage.BUNS_BUTTON).click()
+        assert driver.find_element(*MainPage.BUNS).is_displayed()
 
 '''Проверяем переход на кнопку Нвачинки (что фокус переместился на раздел), потом на соусы и булочки'''

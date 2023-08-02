@@ -3,7 +3,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import random
+from helper import get_mail
+from locators import MainPage
+
 
 @pytest.fixture
 def driver():
@@ -12,10 +14,14 @@ def driver():
     yield browser
     browser.quit()
 
+
 @pytest.fixture
-def mymail():
-    random_mail = f"kirillprovotorov12{random.randint(000, 999)}@mail.ru"
-    return random_mail
+def registration(driver):
+    driver.find_element(*MainPage.ENTER_ACCOUNT).click()
+    driver.find_element(By.XPATH, " // a[contains(text(), 'Зарегистрироваться')]").click()
+    driver.find_element(By.XPATH, "//input[@name='name']").send_keys("Кирилл")
+    driver.find_element(By.XPATH, "//fieldset[2]/div/div/input").send_keys(get_mail())
+    return driver
 
 @pytest.fixture
 def login(driver):
